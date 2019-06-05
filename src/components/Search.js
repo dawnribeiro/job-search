@@ -12,6 +12,10 @@ export default function Search() {
     })
   }, [])
 
+  const clearResults = event => {
+    setResults([])
+  }
+
   const addDescription = event => {
     event.preventDefault()
     console.log(description)
@@ -24,17 +28,18 @@ export default function Search() {
   return (
     <section>
       <form onSubmit={addDescription}>
-        <h2>Description</h2>
         <input
           type="text"
-          placeholder="ie 'ruby' or 'java'"
+          placeholder="job description"
           value={description}
+          className="input-field"
           onChange={event => {
             setDescription(event.target.value)
           }}
         />
       </form>
-      <h3>results</h3>
+      <h3 className="results">Results</h3>
+      <button onClick={clearResults}>Clear Results</button>
       <ul>
         {results.map(result => {
           return (
@@ -42,9 +47,7 @@ export default function Search() {
               <p>{result.position_title}</p>
               <p>{result.locations}</p>
               <p>{result.organization_name}</p>
-              <a href={result.url}>
-                <p>{result.url}</p>
-              </a>
+              <a href={result.url}>{result.url}</a>
             </li>
           )
         })}
